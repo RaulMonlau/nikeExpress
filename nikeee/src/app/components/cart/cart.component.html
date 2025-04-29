@@ -1,0 +1,71 @@
+<div class="cart-container">
+    <h2 class="cart-title">Tu Carrito</h2>
+    
+    <div *ngIf="errorMessage" class="alert alert-error">
+      {{ errorMessage }}
+    </div>
+    
+    <div *ngIf="checkoutSuccess" class="alert alert-success">
+      ¡Tu pedido ha sido procesado correctamente! Gracias por tu compra.
+    </div>
+    
+    <div *ngIf="!checkoutSuccess">
+      <div *ngIf="cartItems.length > 0; else emptyCart">
+        <div class="cart-header">
+          <div class="timer-container">
+            <span class="timer-icon">⏱️</span>
+            <span class="timer-text">
+              Tiempo restante: <strong>{{ formatTimeRemaining(cartTimeout) }}</strong>
+            </span>
+            <button class="refresh-button" (click)="refreshCart()">
+              <span class="refresh-icon">↺</span> Extender tiempo
+            </button>
+          </div>
+        </div>
+        
+        <div class="cart-items">
+          <div class="cart-item" *ngFor="let item of cartItems">
+            <div class="item-image">
+              <img [src]="item.image || 'http://monlab.ddns.net/nikeee/no-image.png'" [alt]="item.name">
+            </div>
+            <div class="item-details">
+              <h3 class="item-name">{{ item.name }}</h3>
+              <p class="item-price">{{ item.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+            </div>
+            <div class="quantity-controls">
+              <button class="quantity-btn" (click)="decreaseQuantity(item)" [disabled]="item.quantity <= 1">−</button>
+              <input type="number" class="quantity-input" [(ngModel)]="item.quantity" 
+                    (change)="updateQuantity(item.productId, item.quantity)" min="1" [max]="item.stock">
+              <button class="quantity-btn" (click)="increaseQuantity(item)" [disabled]="item.quantity >= item.stock">+</button>
+            </div>
+            <div class="item-total">
+              {{ item.price * item.quantity | currency:'EUR':'symbol':'1.2-2' }}
+            </div>
+            <button class="remove-btn" (click)="removeItem(item.productId)">×</button>
+          </div>
+        </div>
+        
+        <div class="cart-summary">
+          <div class="cart-total">
+            <span>Total:</span>
+            <span class="total-amount">{{ cartTotal | currency:'EUR':'symbol':'1.2-2' }}</span>
+          </div>
+          <div class="cart-actions">
+            <button class="clear-btn" (click)="clearCart()">Vaciar carrito</button>
+            <button class="continue-shopping-btn" routerLink="/product">Seguir comprando</button>
+            <button class="checkout-btn" [disabled]="!continueToCheckout() || processingCheckout" (click)="checkout()">
+              {{ processingCheckout ? 'Procesando...' : 'Finalizar compra' }}
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <ng-template #emptyCart>
+        <div class="empty-cart">
+          <div class="empty-cart-icon">🛒</div>
+          <p class="empty-cart-message">Tu carrito está vacío</p>
+          <button class="continue-shopping-btn" routerLink="/product">Ver productos</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>

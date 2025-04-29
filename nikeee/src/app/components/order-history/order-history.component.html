@@ -1,0 +1,53 @@
+<div class="order-history">
+    <h2>Mi historial de pedidos</h2>
+    
+    <div *ngIf="loading" class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Cargando historial de pedidos...</p>
+    </div>
+    
+    <div *ngIf="!loading && error" class="error-message">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!loading && !error && orders.length === 0" class="empty-state">
+      <div class="empty-icon">📦</div>
+      <h3>Aún no tienes pedidos</h3>
+      <p>Explora nuestra tienda para encontrar productos increíbles</p>
+      <a routerLink="/product" class="shop-now-btn">Comprar ahora</a>
+    </div>
+    
+    <div *ngIf="!loading && !error && orders.length > 0" class="orders-list">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Nº de Pedido</th>
+            <th>Fecha</th>
+            <th>Productos</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let order of orders">
+            <tr class="order-row">
+              <td>#{{ order.id }}</td>
+              <td>{{ order.fecha_compra | formatDate }}</td>
+              <td>{{ order.num_productos }} producto(s)</td>
+              <td>{{ order.total | currency:'EUR' }}</td>
+              <td>
+                <button (click)="viewOrderDetails(order.id)" class="detail-btn">
+                  {{ selectedOrderId === order.id ? 'Ocultar detalles' : 'Ver detalles' }}
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="selectedOrderId === order.id" class="details-row">
+              <td colspan="5">
+                <app-order-detail [orderId]="order.id"></app-order-detail>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>

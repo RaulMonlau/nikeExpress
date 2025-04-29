@@ -1,0 +1,66 @@
+<div class="profile-info">
+    <h2>Mis datos personales</h2>
+    
+    <!-- Mensaje de éxito -->
+    <div class="alert alert-success" *ngIf="showSuccessMessage">
+      ¡Perfil actualizado correctamente!
+    </div>
+    
+    <!-- Mensaje de error -->
+    <div class="alert alert-danger" *ngIf="showErrorMessage">
+      {{ errorMessage }}
+    </div>
+    
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input 
+          type="text" 
+          id="nombre" 
+          formControlName="nombre" 
+          class="form-control"
+          [ngClass]="{'is-invalid': profileForm.get('nombre')?.invalid && profileForm.get('nombre')?.touched}"
+        >
+        <div class="invalid-feedback" *ngIf="profileForm.get('nombre')?.invalid && profileForm.get('nombre')?.touched">
+          <span *ngIf="profileForm.get('nombre')?.errors?.['required']">El nombre es obligatorio</span>
+          <span *ngIf="profileForm.get('nombre')?.errors?.['minlength']">El nombre debe tener al menos 2 caracteres</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="apellidos">Apellidos</label>
+        <input 
+          type="text" 
+          id="apellidos" 
+          formControlName="apellidos" 
+          class="form-control"
+          [ngClass]="{'is-invalid': profileForm.get('apellidos')?.invalid && profileForm.get('apellidos')?.touched}"
+        >
+        <div class="invalid-feedback" *ngIf="profileForm.get('apellidos')?.invalid && profileForm.get('apellidos')?.touched">
+          <span *ngIf="profileForm.get('apellidos')?.errors?.['required']">Los apellidos son obligatorios</span>
+          <span *ngIf="profileForm.get('apellidos')?.errors?.['minlength']">Los apellidos deben tener al menos 2 caracteres</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email" 
+          class="form-control"
+          [ngClass]="{'is-invalid': profileForm.get('email')?.invalid && profileForm.get('email')?.touched}"
+        >
+        <div class="invalid-feedback" *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+          <span *ngIf="profileForm.get('email')?.errors?.['required']">El email es obligatorio</span>
+          <span *ngIf="profileForm.get('email')?.errors?.['email']">Introduce un email válido</span>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn-primary" [disabled]="profileForm.invalid">
+          Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>

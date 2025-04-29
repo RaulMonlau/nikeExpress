@@ -1,0 +1,61 @@
+<div class="order-detail">
+    <div *ngIf="loading" class="detail-loading">
+      <div class="spinner"></div>
+      <span>Cargando detalles...</span>
+    </div>
+    
+    <div *ngIf="!loading && error" class="detail-error">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!loading && orderDetails" class="detail-content">
+      <div class="detail-header">
+        <div class="order-info">
+          <div class="info-item">
+            <span class="label">Nº de Pedido:</span>
+            <span class="value">#{{ orderDetails.compra.id }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Fecha:</span>
+            <span class="value">{{ orderDetails.compra.fecha_compra | formatDate }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Total:</span>
+            <span class="value total-value">{{ orderDetails.compra.total | currency:'EUR' }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <h3 class="detail-section-title">Productos</h3>
+      
+      <div class="products-list">
+        <div *ngFor="let item of orderDetails.detalles" class="product-item">
+          <div class="product-image">
+            <img *ngIf="item.imagen" [src]="item.imagen" [alt]="item.nombre">
+            <div *ngIf="!item.imagen" class="no-image">Sin imagen</div>
+          </div>
+          <div class="product-info">
+            <h4 class="product-name">{{ item.nombre }}</h4>
+            <div *ngIf="item.referencia" class="product-ref">Ref: {{ item.referencia }}</div>
+          </div>
+          <div class="product-quantity">
+            <span class="quantity-label">Cantidad:</span>
+            <span class="quantity-value">{{ item.cantidad }}</span>
+          </div>
+          <div class="product-price">
+            <span class="price-value">{{ item.precio_unitario | currency:'EUR' }}</span>
+          </div>
+          <div class="product-subtotal">
+            <span class="subtotal-value">{{ item.precio_unitario * item.cantidad | currency:'EUR' }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="order-summary">
+        <div class="summary-row">
+          <span>Total:</span>
+          <span class="summary-total">{{ orderDetails.compra.total | currency:'EUR' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>

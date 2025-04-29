@@ -1,0 +1,205 @@
+/* Aplicamos el grid al <ul> para que sus <li> (tarjetas) se distribuyan en columnas */
+.product-list ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 10px;
+  margin: 0;
+  list-style: none;
+}
+/* Añadir a los estilos existentes */
+
+.loading-indicator {
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  color: #777;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: #555;
+  font-style: italic;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.offer-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.product-card {
+  position: relative;
+}
+/* Tarjeta de producto */
+.product-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Agregar a los estilos existentes */
+
+.delete-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #E34234;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #c53026;
+}
+/* Añadir al CSS existente */
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  text-align: center;
+  border-left: 4px solid #4caf50;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.product-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.add-to-cart-btn {
+  padding: 8px 15px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: bold;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.add-to-cart-btn:hover:not(:disabled) {
+  background-color: #333;
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.stock-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.product-image-container {
+  position: relative;
+}
+
+.low-stock {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+/* Mejoras para móviles */
+@media (max-width: 600px) {
+  .product-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .add-to-cart-btn {
+    margin-right: 0;
+  }
+}
+.product-card {
+  position: relative;
+  padding-bottom: 40px; /* Espacio para el botón de eliminar */
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen del producto */
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+/* Título y detalles */
+.product-card h2 {
+  font-size: 1.1rem;
+  margin: 5px 0;
+  color: #333;
+  text-align: center;
+}
+
+.product-card p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+  color: #555;
+  text-align: center;
+}
+
+/* Responsividad */
+@media (max-width: 992px) {
+  .product-list ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-list ul {
+    grid-template-columns: 1fr;
+  }
+}

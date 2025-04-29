@@ -1,0 +1,49 @@
+<div class="product-list">
+  <div *ngIf="loading" class="loading-indicator">
+    Cargando productos...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="addToCartSuccess" class="success-message">
+    {{ addToCartSuccess }}
+  </div>
+  
+  <ul *ngIf="!loading && !error">
+    <li *ngFor="let product of (products$ | async)" class="product-card">
+      <div class="product-image-container">
+        <img *ngIf="product.productImageData" [src]="product.productImageData" alt="{{ product.name }}" class="product-image" />
+        <img *ngIf="!product.productImageData" src="http://monlab.ddns.net/nikeee/no-image.png" alt="Sin imagen" class="product-image" />
+        <div class="offer-badge" *ngIf="product.offer">OFERTA</div>
+        <div class="stock-badge" *ngIf="isOutOfStock(product)">SIN STOCK</div>
+      </div>
+      
+      <div class="product-info">
+        <h2>{{ product.name }}</h2>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-price">{{ product.price | currency:'EUR':'symbol':'1.2-2' }}</p>
+        <p class="product-stock" [class.low-stock]="product.stock <= 5 && product.stock > 0">
+          <strong>Stock:</strong> {{ product.stock || 'No disponible' }}
+        </p>
+        <p class="product-type"><strong>Tipo:</strong> {{ product.productType }}</p>
+        
+        <div class="product-actions">
+          <button 
+            class="add-to-cart-btn" 
+            [disabled]="isOutOfStock(product)"
+            (click)="addToCart(product)"
+          >
+            Añadir al carrito
+          </button>
+          <button *ngIf="isAdmin" class="delete-button" (click)="deleteProduct(product.id)">Eliminar</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+  
+  <div *ngIf="(products$ | async)?.length === 0 && !loading" class="empty-state">
+    No hay productos disponibles
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="user-profile-page">
+    <!-- Banner de perfil -->
+    <div class="profile-banner">
+      <div class="profile-banner-content">
+        <h1>Mi Cuenta Nike</h1>
+        <p *ngIf="user">Hola, {{user.nombre}}</p>
+      </div>
+    </div>
+  
+    <!-- Navegación por pestañas -->
+    <div class="profile-tabs">
+      <div class="tab-menu">
+        <button 
+          [ngClass]="{'active': activeTab === 'profile'}" 
+          (click)="setActiveTab('profile')">
+          Datos Personales
+        </button>
+        <button 
+          [ngClass]="{'active': activeTab === 'password'}" 
+          (click)="setActiveTab('password')">
+          Cambiar Contraseña
+        </button>
+        <button 
+          [ngClass]="{'active': activeTab === 'orders'}" 
+          (click)="setActiveTab('orders')">
+          Mis Pedidos
+        </button>
+      </div>
+  
+      <!-- Contenido de pestañas -->
+      <div class="tab-content">
+        <app-profile-info *ngIf="activeTab === 'profile' && user" [userData]="user"></app-profile-info>
+        <app-change-password *ngIf="activeTab === 'password'"></app-change-password>
+        <app-order-history *ngIf="activeTab === 'orders'"></app-order-history>
+      </div>
+    </div>
+  </div>

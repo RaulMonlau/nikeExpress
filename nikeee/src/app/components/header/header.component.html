@@ -1,0 +1,54 @@
+<header class="header">
+  <div class="header-container">
+    <!-- Left section with logos -->
+    <div class="logo-section">
+      <a routerLink="/" class="logo nike-logo">
+        <img src="http://monlab.ddns.net/nikeee/nike-eps-vector-logo.png" alt="Nike" />
+      </a>
+      <div class="account-links">
+        <ng-container *ngIf="!isLoggedIn">
+          <a routerLink="register" class="account-link">Register</a>
+          <span class="separator">|</span>
+          <a routerLink="login" class="account-link">Login</a>
+        </ng-container>
+        <ng-container *ngIf="isLoggedIn">
+          <span class="welcome-text">Welcome, {{ userName }}</span>
+          <span class="separator">|</span>
+          <a class="account-link logout-link" (click)="logout()">Logout</a>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Center section with navigation -->
+    <nav class="main-nav">
+      <ul class="nav-list">
+        <li class="nav-item"><a routerLink="home">Home</a></li>
+        <li class="nav-item" *ngIf="isLoggedIn"><a routerLink="product">Productos</a></li>
+        <li class="nav-item" *ngIf="isAdmin"><a routerLink="admin">Administración</a></li>
+      </ul>
+    </nav>
+
+    <!-- Right section with search and user controls -->
+    <div class="user-controls">
+      <div class="search-container">
+        <button class="search-button">
+          <img src="http://monlab.ddns.net//nikeee/lupa.png" class="small-img" alt="lupa.png">
+        </button>
+        <input type="text" class="search-input" placeholder="Buscar" />
+      </div>
+
+      <div class="user-actions">
+        <a routerLink="/cart" class="cart-icon-container" *ngIf="isLoggedIn">
+          <span class="cart-icon">🛒</span>
+          <span class="cart-badge" *ngIf="cartItemCount > 0">{{ cartItemCount }}</span>
+        </a>
+        <!-- actualizar en header.component.html -->
+        <a routerLink="/profile" class="user-icon">
+          <i class="account-icon"></i>
+          <span>Mi Cuenta</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</header>

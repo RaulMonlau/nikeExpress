@@ -1,0 +1,116 @@
+<div class="register-page">
+    <!-- Banner -->
+    <div class="register-banner-container">
+      <img src="http://monlab.ddns.net/nikeee/admin.jpg" alt="Banner Register" class="register-banner" />
+      <div class="banner-overlay">
+        <h1>Únete a Nike</h1>
+        <p>Crea tu cuenta y disfruta de beneficios exclusivos</p>
+      </div>
+    </div>
+  
+    <!-- Formulario -->
+    <div class="form-wrapper">
+      <!-- Add this above the form or where you want to display error messages -->
+<div class="error-alert" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+      <form [formGroup]="registerForm" class="register-form" (ngSubmit)="onSubmit()">
+        <!-- Nombre -->
+        <div class="form-group">
+          <label for="firstName">Nombre:</label>
+          <div class="input-wrapper" [ngClass]="{'valid': registerForm.controls['firstName'].touched && registerForm.controls['firstName'].valid, 'invalid': registerForm.controls['firstName'].touched && registerForm.controls['firstName'].invalid}">
+            <input type="text" id="firstName" formControlName="firstName" />
+            <span class="icon" *ngIf="registerForm.controls['firstName'].touched">
+              {{ registerForm.controls['firstName'].valid ? '✓' : '✗' }}
+            </span>
+          </div>
+          <div class="error-messages" *ngIf="registerForm.controls['firstName'].touched && registerForm.controls['firstName'].invalid">
+            <small *ngIf="registerForm.controls['firstName'].errors?.['required']">Campo obligatorio.</small>
+          </div>
+        </div>
+  
+        <!-- Apellidos -->
+        <div class="form-group">
+          <label for="lastName">Apellidos:</label>
+          <div class="input-wrapper" [ngClass]="{'valid': registerForm.controls['lastName'].touched && registerForm.controls['lastName'].valid, 'invalid': registerForm.controls['lastName'].touched && registerForm.controls['lastName'].invalid}">
+            <input type="text" id="lastName" formControlName="lastName" />
+            <span class="icon" *ngIf="registerForm.controls['lastName'].touched">
+              {{ registerForm.controls['lastName'].valid ? '✓' : '✗' }}
+            </span>
+          </div>
+          <div class="error-messages" *ngIf="registerForm.controls['lastName'].touched && registerForm.controls['lastName'].invalid">
+            <small *ngIf="registerForm.controls['lastName'].errors?.['required']">Campo obligatorio.</small>
+          </div>
+        </div>
+  
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Correo electrónico:</label>
+          <div class="input-wrapper" [ngClass]="{'valid': registerForm.controls['email'].touched && registerForm.controls['email'].valid, 'invalid': registerForm.controls['email'].touched && registerForm.controls['email'].invalid}">
+            <input type="email" id="email" formControlName="email" />
+            <span class="icon" *ngIf="registerForm.controls['email'].touched">
+              {{ registerForm.controls['email'].valid ? '✓' : '✗' }}
+            </span>
+          </div>
+          <div class="error-messages" *ngIf="registerForm.controls['email'].touched && registerForm.controls['email'].invalid">
+            <small *ngIf="registerForm.controls['email'].errors?.['required']">Campo obligatorio.</small>
+            <small *ngIf="registerForm.controls['email'].errors?.['email']">Correo electrónico no válido.</small>
+          </div>
+        </div>
+  
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <div class="input-wrapper" [ngClass]="{'valid': registerForm.controls['password'].touched && registerForm.controls['password'].valid, 'invalid': registerForm.controls['password'].touched && registerForm.controls['password'].invalid}">
+            <input type="password" id="password" formControlName="password" />
+            <span class="icon" *ngIf="registerForm.controls['password'].touched">
+              {{ registerForm.controls['password'].valid ? '✓' : '✗' }}
+            </span>
+          </div>
+          <div class="error-messages" *ngIf="registerForm.controls['password'].touched && registerForm.controls['password'].invalid">
+            <small *ngIf="registerForm.controls['password'].errors?.['required']">Campo obligatorio.</small>
+            <small *ngIf="registerForm.controls['password'].errors?.['minlength']">Mínimo 6 caracteres.</small>
+            <small *ngIf="registerForm.controls['password'].errors?.['pattern']">La contraseña debe contener al menos una letra mayúscula, una minúscula y un número.</small>
+          </div>
+        </div>
+  
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar contraseña:</label>
+          <div class="input-wrapper" [ngClass]="{'valid': registerForm.controls['confirmPassword'].touched && registerForm.controls['confirmPassword'].valid && !registerForm.errors?.['passwordMismatch'], 'invalid': (registerForm.controls['confirmPassword'].touched && registerForm.controls['confirmPassword'].invalid) || registerForm.errors?.['passwordMismatch']}">
+            <input type="password" id="confirmPassword" formControlName="confirmPassword" />
+            <span class="icon" *ngIf="registerForm.controls['confirmPassword'].touched">
+              {{ (registerForm.controls['confirmPassword'].valid && !registerForm.errors?.['passwordMismatch']) ? '✓' : '✗' }}
+            </span>
+          </div>
+          <div class="error-messages" *ngIf="registerForm.controls['confirmPassword'].touched && (registerForm.controls['confirmPassword'].invalid || registerForm.errors?.['passwordMismatch'])">
+            <small *ngIf="registerForm.controls['confirmPassword'].errors?.['required']">Campo obligatorio.</small>
+            <small *ngIf="registerForm.errors?.['passwordMismatch']">Las contraseñas no coinciden.</small>
+          </div>
+        </div>
+  
+        <!-- Terms -->
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" formControlName="termsAccepted" />
+            Acepto los términos y condiciones
+          </label>
+          <div class="error-messages" *ngIf="registerForm.controls['termsAccepted'].touched && registerForm.controls['termsAccepted'].invalid">
+            <small *ngIf="registerForm.controls['termsAccepted'].errors?.['required']">Debes aceptar los términos y condiciones.</small>
+          </div>
+        </div>
+  
+        <!-- Botón -->
+        <div class="form-group">
+          <button type="submit" class="register-button" [disabled]="registerForm.invalid">
+            Crear cuenta
+          </button>
+        </div>
+  
+        <!-- Login link -->
+        <div class="form-group text-center">
+          <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+        </div>
+      </form>
+    </div>
+  </div>

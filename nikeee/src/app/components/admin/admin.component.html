@@ -1,0 +1,125 @@
+<div class="admin-container">
+  <h2 class="admin-title">Administración de Productos</h2>
+  
+  <!-- Mensajes de éxito y error -->
+  <div *ngIf="submitSuccess" class="alert alert-success">
+    {{ submitSuccess }}
+  </div>
+  <div *ngIf="submitError" class="alert alert-error">
+    {{ submitError }}
+  </div>
+
+  <form [formGroup]="adminForm" (ngSubmit)="onSubmit()" class="product-form">
+    <div class="form-group">
+      <label for="reference">Referencia:</label>
+      <input 
+        id="reference" 
+        type="text" 
+        formControlName="reference" 
+        (blur)="onReferenceBlur()" 
+        class="form-control"
+        [class.error]="adminForm.get('reference')?.invalid && adminForm.get('reference')?.touched"
+      >
+      <div *ngIf="adminForm.get('reference')?.invalid && adminForm.get('reference')?.touched" class="error-message">
+        Referencia es obligatoria
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Nombre:</label>
+      <input 
+        id="name" 
+        type="text" 
+        formControlName="name" 
+        class="form-control"
+        [class.error]="adminForm.get('name')?.invalid && adminForm.get('name')?.touched"
+      >
+      <div *ngIf="adminForm.get('name')?.invalid && adminForm.get('name')?.touched" class="error-message">
+        <span *ngIf="adminForm.get('name')?.errors?.['required']">Nombre es obligatorio</span>
+        <span *ngIf="adminForm.get('name')?.errors?.['duplicateName']">El nombre ya existe en otro producto</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio:</label>
+      <input 
+        id="price" 
+        type="number" 
+        formControlName="price" 
+        class="form-control"
+        [class.error]="adminForm.get('price')?.invalid && adminForm.get('price')?.touched"
+      >
+      <div *ngIf="adminForm.get('price')?.invalid && adminForm.get('price')?.touched" class="error-message">
+        <span *ngIf="adminForm.get('price')?.errors?.['required']">Precio es obligatorio</span>
+        <span *ngIf="adminForm.get('price')?.errors?.['min']">El precio debe ser mayor o igual a 0</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="stock">Stock:</label>
+      <input 
+        id="stock" 
+        type="number" 
+        formControlName="stock" 
+        class="form-control"
+        [class.error]="adminForm.get('stock')?.invalid && adminForm.get('stock')?.touched"
+      >
+      <div *ngIf="adminForm.get('stock')?.invalid && adminForm.get('stock')?.touched" class="error-message">
+        El stock debe ser mayor o igual a 0
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción:</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        class="form-control textarea"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="productType">Tipo de producto:</label>
+      <select id="productType" formControlName="productType" class="form-control">
+        <option value="">Seleccionar tipo</option>
+        <option value="calzado">Calzado</option>
+        <option value="ropa">Ropa</option>
+        <option value="accesorios">Accesorios</option>
+      </select>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <input id="offer" type="checkbox" formControlName="offer">
+      <label for="offer">En oferta</label>
+    </div>
+
+    <div class="form-group">
+      <label for="productImage">Imagen del producto:</label>
+      <input 
+        id="productImage" 
+        type="file" 
+        accept="image/*" 
+        (change)="onProductImageChange($event)" 
+        class="form-control"
+      >
+      <div *ngIf="previewImage" class="image-preview-container">
+        <img [src]="previewImage" alt="Vista previa del producto" class="image-preview">
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary">
+        {{ isEditing ? 'Actualizar Producto' : 'Agregar Producto' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="resetForm()">Limpiar</button>
+      <button 
+        *ngIf="isEditing" 
+        type="button" 
+        class="btn btn-danger" 
+        (click)="deleteProduct()"
+      >
+        Eliminar Producto
+      </button>
+    </div>
+  </form>
+</div>

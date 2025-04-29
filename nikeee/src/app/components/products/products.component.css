@@ -1,0 +1,59 @@
+.products-page {
+  padding: 20px;
+}
+
+.products-container {
+  padding: 20px;
+  background: #f7f7f7;
+}
+
+/* Creamos una cuadrícula para el listado de productos */
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Estilo de tarjeta de producto */
+.product-card {
+  border: 1px solid #e0e0e0;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  text-align: center;
+}
+
+/* Título del producto */
+.product-card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Detalles del producto */
+.product-card p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Responsividad: ajustar columnas en pantallas más pequeñas */
+@media (max-width: 1200px) {
+  .product-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-list {
+    grid-template-columns: 1fr;
+  }
+}

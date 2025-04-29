@@ -1,0 +1,144 @@
+.order-history h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    position: relative;
+  }
+  
+  .order-history h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: #000;
+  }
+  
+  /* Loading indicator */
+  .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #000;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Error message */
+  .error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .empty-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+  }
+  
+  .empty-state h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .empty-state p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .shop-now-btn {
+    display: inline-block;
+    background-color: #111;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .shop-now-btn:hover {
+    background-color: #333;
+  }
+  
+  /* Orders table */
+  .orders-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .orders-table th {
+    text-align: left;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #ddd;
+    font-weight: 600;
+  }
+  
+  .orders-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .order-row:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .detail-btn {
+    background-color: transparent;
+    border: 1px solid #111;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+  }
+  
+  .detail-btn:hover {
+    background-color: #111;
+    color: white;
+  }
+  
+  .details-row {
+    background-color: #f9f9f9;
+  }
+  
+  .details-row td {
+    padding: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .orders-table {
+      display: block;
+      overflow-x: auto;
+    }
+    
+    .orders-table th,
+    .orders-table td {
+      white-space: nowrap;
+    }
+  }

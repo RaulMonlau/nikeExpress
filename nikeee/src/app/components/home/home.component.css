@@ -1,0 +1,9 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .home-img {
+    width: 100%;
+    display: block;
+  }
